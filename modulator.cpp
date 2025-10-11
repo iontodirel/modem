@@ -1,7 +1,6 @@
 ﻿#include "modulator.h"
 
 #include <cassert>
-#include <cmath>
 
 // **************************************************************** //
 //                                                                  //
@@ -79,127 +78,6 @@ int dds_afsk_modulator::samples_per_bit() const
 {
     return samples_per_bit_;
 }
-
-// **************************************************************** //
-//                                                                  //
-//                                                                  //
-// dds_afsk_modulator_fast                                          //
-//                                                                  //
-//                                                                  //
-// **************************************************************** //
-
-dds_afsk_modulator_fast::dds_afsk_modulator_fast(double f_mark, double f_space, int bitrate, int sample_rate) : f_mark(f_mark), f_space(f_space), sample_rate(sample_rate), samples_per_bit_(static_cast<int>((sample_rate + (bitrate / 2)) / bitrate))
-{
-    const unsigned int default_lut_size = 1024;
-
-    unsigned int lut_size = default_lut_size;
-
-    unsigned int bits = 0;
-    while ((1u << bits) != lut_size) { ++bits; }
-    lookup_table_bits_ = bits;
-    lookup_table_mask_ = lut_size - 1;
-
-    lookup_table_.resize(lut_size);
-
-    constexpr double two_pi = 2.0 * 3.14159265358979323846;
-
-    for (unsigned int i = 0; i < lut_size; i++)
-    {
-        double theta = two_pi * static_cast<double>(i) / static_cast<double>(lut_size);
-        double s = std::sin(theta);
-        lookup_table_[i] = s;
-    }
-
-    phase_increment_mark_ = static_cast<unsigned int>(((static_cast<uint64_t>(static_cast<unsigned int>(this->f_mark)) << 32) / static_cast<uint64_t>(this->sample_rate)));
-    phase_increment_space_ = static_cast<unsigned int>(((static_cast<uint64_t>(static_cast<unsigned int>(this->f_space)) << 32) / static_cast<uint64_t>(this->sample_rate)));
-    phase_accumulator_ = 0;
-}
-
-double dds_afsk_modulator_fast::modulate(uint8_t bit)
-{
-    // Select phase increment based on bit value (mark = 1, space = 0)
-    const unsigned int phase_increment = bit ? phase_increment_mark_ : phase_increment_space_;
-
-    // Update phase accumulator
-    phase_accumulator_ += phase_increment;
-
-    // Extract lookup table index from upper bits of phase accumulator
-    const unsigned int shift_amount = 32u - lookup_table_bits_;
-    const unsigned int index = (phase_accumulator_ >> shift_amount) & lookup_table_mask_;
-
-    return lookup_table_[index];
-}
-
-void dds_afsk_modulator_fast::reset()
-{
-    phase_accumulator_ = 0;
-}
-
-int dds_afsk_modulator_fast::samples_per_bit() const
-{
-    return samples_per_bit_;
-}
-
-// **************************************************************** //
-//                                                                  //
-//                                                                  //
-// dds_afsk_modulator_fast_int                                      //
-//                                                                  //
-//                                                                  //
-// **************************************************************** //
-
-dds_afsk_modulator_fast_int::dds_afsk_modulator_fast_int(double f_mark, double f_space, int bitrate, int sample_rate) : f_mark(f_mark), f_space(f_space), sample_rate(sample_rate), samples_per_bit_(static_cast<int>((sample_rate + (bitrate / 2)) / bitrate))
-{
-    const unsigned int default_lut_size = 1024;
-
-    unsigned int lut_size = default_lut_size;
-
-    unsigned int bits = 0;
-    while ((1u << bits) != lut_size) { ++bits; }
-    lookup_table_bits_ = bits;
-    lookup_table_mask_ = lut_size - 1;
-
-    lookup_table_int_.resize(lut_size);
-
-    constexpr double two_pi = 2.0 * 3.14159265358979323846;
-
-    for (unsigned int i = 0; i < lut_size; i++)
-    {
-        double theta = two_pi * static_cast<double>(i) / static_cast<double>(lut_size);
-        double s = std::sin(theta);
-        lookup_table_int_[i] = static_cast<int16_t>(s * 32767.0);  // Scale to int16_t range
-    }
-
-    phase_increment_mark_ = static_cast<unsigned int>(((static_cast<uint64_t>(static_cast<unsigned int>(this->f_mark)) << 32) / static_cast<uint64_t>(this->sample_rate)));
-    phase_increment_space_ = static_cast<unsigned int>(((static_cast<uint64_t>(static_cast<unsigned int>(this->f_space)) << 32) / static_cast<uint64_t>(this->sample_rate)));
-    phase_accumulator_ = 0;
-}
-
-int16_t dds_afsk_modulator_fast_int::modulate_int(uint8_t bit)
-{
-    // Select phase increment based on bit value (mark = 1, space = 0)
-    const unsigned int phase_increment = bit ? phase_increment_mark_ : phase_increment_space_;
-
-    // Update phase accumulator
-    phase_accumulator_ += phase_increment;
-
-    // Extract lookup table index from upper bits of phase accumulator
-    const unsigned int shift_amount = 32u - lookup_table_bits_;
-    const unsigned int index = (phase_accumulator_ >> shift_amount) & lookup_table_mask_;
-
-    return lookup_table_int_[index];
-}
-
-void dds_afsk_modulator_fast_int::reset()
-{
-    phase_accumulator_ = 0;
-}
-
-int dds_afsk_modulator_fast_int::samples_per_bit() const
-{
-    return samples_per_bit_;
-}
-
 
 // **************************************************************** //
 //                                                                  //
