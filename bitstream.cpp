@@ -49,24 +49,6 @@ bool basic_bitstream_converter::try_decode(const std::vector<uint8_t>& bitstream
 // **************************************************************** //
 //                                                                  //
 //                                                                  //
-// fx25_bitstream_converter                                        //
-//                                                                  //
-//                                                                  //
-// **************************************************************** //
-
-std::vector<uint8_t> fx25_bitstream_converter::encode(const aprs::router::packet& p, int preamble_flags, int postamble_flags) const
-{
-    return encode_fx25_bitstream3(p, preamble_flags, postamble_flags);
-}
-
-bool fx25_bitstream_converter::try_decode(const std::vector<uint8_t>& bitstream, aprs::router::packet& p) const
-{
-    return false;
-}
-
-// **************************************************************** //
-//                                                                  //
-//                                                                  //
 // address                                                          //
 //                                                                  //
 //                                                                  //
