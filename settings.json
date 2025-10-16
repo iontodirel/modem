@@ -1,0 +1,89 @@
+{
+  "modulators": [
+    {
+      "name": "1200 APRS modulator",
+      "enabled": true,
+      "baud_rate": 1200,
+      "mark_freq_hz": 1200.0,
+      "space_freq_hz": 2200.0,
+      "tx_delay_ms": 300,
+      "tx_tail_ms": 30,
+      "gain": 0.3, 
+      "preemphasis": true,
+      "preemphasis_tau_us": 750,
+      "begin_silence_ms": 100,
+      "end_silence_ms": 100,
+      "modulator_type": "dds_afsk_modulator",
+      "encoder_type": "ax25",
+      "audio_streams": [ "wasapi_audio_stream_default" ],
+      "data_streams": [ "tcp_default" ],
+      "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi" ]
+    },
+    {
+      "name": "1200 APRS modulator (wav renderer)",
+      "enabled": true,
+      "inherit": "1200 APRS modulator",
+      "audio_streams": [ "wav_file_default" ]
+    },
+    {
+      "name": "1200 APRS modulator (multiple)",
+      "enabled": true,
+      "inherit": "1200 APRS modulator",
+      "audio_streams": [ "wasapi_audio_stream_default", "wav_file_default" ],
+      "data_streams": [ "tcp_default", "serial_default" ]
+    }
+  ],
+  "audio_streams": [
+    {
+      "name": "wasapi_audio_stream_default",
+      "type": "wasapi_audio_stream",
+      "device_name": "default",
+      "volume": 20 
+    },
+    {
+      "name": "tcp_audio_default",
+      "type": "tcp_audio_stream",
+      "host": "192.168.1.11",
+      "audio_port": 8000,
+      "control_port": 8001
+    },
+    {
+      "name": "wav_file_default",
+      "type": "wav_audio_stream",
+      "file_path": "output.wav",
+      "sample_rate": 48000
+    }   
+  ],
+  "data_streams": [
+    {
+      "name": "tcp_default",
+      "type": "tcp_data_stream",
+      "host": "192.168.1.11",
+      "port": 8002,
+      "format": "kiss"
+    },
+    {
+      "name": "serial_default",
+      "type": "serial_data_stream",
+      "port": "COM3",
+      "baud_rate": 9600,
+      "format": "kiss"
+    }
+  ],
+  "ptt_streams": [
+    {
+      "name": "serial_ptt_default",
+      "type": "serial_ptt_stream",
+      "port": "COM4",
+      "baud_rate": 9600,
+      "line": "dtr",
+      "active_high": true
+    },
+    {
+      "name": "gpio_ptt_raspberrypi",
+      "type": "gpio_ptt_stream",
+      "pin_number": 18,
+      "active_high": true
+    }
+  ]
+}
