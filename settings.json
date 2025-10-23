@@ -2,6 +2,8 @@
   "modulators": [
     {
       "name": "1200 APRS modulator",
+      "type": "dds_afsk_modulator",
+      "convertor": "basic_bitstream_convertor",
       "enabled": true,
       "baud_rate": 1200,
       "mark_freq_hz": 1200.0,
@@ -13,8 +15,6 @@
       "preemphasis_tau_us": 750,
       "begin_silence_ms": 100,
       "end_silence_ms": 100,
-      "modulator": "dds_afsk_modulator",
-      "convertor": "basic_bitstream_convertor",
       "audio_streams": [ "wasapi_audio_stream_default" ],
       "data_streams": [ "tcp_default" ],
       "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi" ]
@@ -88,4 +88,5 @@
     }
   ]
 }
+
 
