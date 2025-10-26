@@ -32,18 +32,6 @@
       "output_audio_streams": [ "wav_file_default" ]
     },
     {
-      "name": "1200 APRS modulator (test)",
-      "enabled": true,
-      "inherit": "1200 APRS modulator",
-      "audio_streams": [],
-      "data_streams": [],
-      "ptt_streams": [],
-      "input_data_streams": [],
-      "output_audio_streams": [],
-      "input_audio_streams": [ "modulator_test_wav_file" ],
-      "output_data_streams": [ "json_stream" ]
-    },
-    {
       "name": "1200 APRS modulator (multiple)",
       "enabled": true,
       "inherit": "1200 APRS modulator",
@@ -81,6 +69,12 @@
     {
       "name": "null_audio",
       "type": "null_audio_stream"
+    },
+    {
+      "name": "fsk_random_stream",
+      "type": "fsk_audio_stream",
+      "source": "random_bitstream",
+      "duration_ms": 0
     }
   ],
   "data_streams": [
@@ -108,7 +102,12 @@
       "name": "json_stream",
       "type": "json_stream",
       "path": "default.json",
-      "format": "text"
+      "format": "aprs_text"
+    },
+    {
+      "name": "stdout_stream",
+      "type": "stdout_stream",
+      "format": "ax25_hex"
     }
   ],
   "ptt_streams": [
@@ -156,3 +155,4 @@
     }
   ]
 }
+
