@@ -52,10 +52,16 @@
     },
     {
       "name": "wav_file_default",
-      "type": "wav_audio_stream",
+      "type": "output_wav_audio_stream",
       "file_path": "output.wav",
       "sample_rate": 48000
-    }   
+    },
+    {
+      "name": "modulator_test_wav_file",
+      "type": "input_wav_audio_stream",
+      "file_path": "test.wav",
+      "sample_rate": 48000
+    }
   ],
   "data_streams": [
     {
@@ -118,6 +124,7 @@
     }
   ]
 }
+
 
 
 
