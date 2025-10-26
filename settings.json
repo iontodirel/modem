@@ -25,7 +25,23 @@
       "name": "1200 APRS modulator (wav renderer)",
       "enabled": true,
       "inherit": "1200 APRS modulator",
-      "audio_streams": [ "wav_file_default" ]
+      "audio_streams": [],
+      "data_streams": [],
+      "ptt_streams": [],
+      "input_data_streams": [ "random_packet_stream" ],
+      "output_audio_streams": [ "wav_file_default" ]
+    },
+    {
+      "name": "1200 APRS modulator (test)",
+      "enabled": true,
+      "inherit": "1200 APRS modulator",
+      "audio_streams": [],
+      "data_streams": [],
+      "ptt_streams": [],
+      "input_data_streams": [],
+      "output_audio_streams": [],
+      "input_audio_streams": [ "modulator_test_wav_file" ],
+      "output_data_streams": [ "json_stream" ]
     },
     {
       "name": "1200 APRS modulator (multiple)",
@@ -61,6 +77,10 @@
       "type": "input_wav_audio_stream",
       "file_path": "test.wav",
       "sample_rate": 48000
+    },
+    {
+      "name": "null_audio",
+      "type": "null_audio_stream"
     }
   ],
   "data_streams": [
@@ -77,6 +97,18 @@
       "port": "COM3",
       "baud_rate": 9600,
       "format": "kiss"
+    },
+    {
+      "name": "random_packet_stream",
+      "type": "packet_stream",
+      "duration_ms": 0,
+      "source": "random"
+    },
+    {
+      "name": "json_stream",
+      "type": "json_stream",
+      "path": "default.json",
+      "format": "text"
     }
   ],
   "ptt_streams": [
@@ -124,9 +156,3 @@
     }
   ]
 }
-
-
-
-
-
-
