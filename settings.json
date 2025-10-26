@@ -18,6 +18,8 @@
       "audio_streams": [ "wasapi_audio_stream_default" ],
       "data_streams": [ "tcp_default" ],
       "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ]
+      "ptt_pre_delay_ms": 10,
+      "ptt_post_delay_ms": 5
     },
     {
       "name": "1200 APRS modulator (wav renderer)",
@@ -92,16 +94,31 @@
       "name": "gpio_ptt_raspberrypi",
       "type": "gpio_ptt_stream",
       "pin_number": 18,
-      "active": "low"
+      "active": "low",
+      "pre_delay_ms": 5,
+      "post_delay_ms": 1
     },
     {
       "name": "gpio_ptt_raspberrypi_2",
       "type": "gpio_ptt_stream",
       "pin_number": 5,
       "active": "high"
+    },
+    {
+      "name": "library_ptt",
+      "type": "library_ptt_stream",
+      "platform": "linux",
+      "path": "ptt_library.so"
+    },
+    {
+      "name": "library_ptt",
+      "type": "library_ptt_stream",
+      "platform": "windows",
+      "path": "ptt_library.dll"
     }
   ]
 }
+
 
 
 
