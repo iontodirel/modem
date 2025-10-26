@@ -17,7 +17,7 @@
       "end_silence_ms": 100,
       "audio_streams": [ "wasapi_audio_stream_default" ],
       "data_streams": [ "tcp_default" ],
-      "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi" ]
+      "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ]
     },
     {
       "name": "1200 APRS modulator (wav renderer)",
@@ -81,12 +81,27 @@
       "active": "high"
     },
     {
+      "name": "serial_ptt_default_2",
+      "type": "serial_ptt_stream",
+      "port": "COM4",
+      "baud_rate": 9600,
+      "line": "rts",
+      "active": "low"
+    },
+    {
       "name": "gpio_ptt_raspberrypi",
       "type": "gpio_ptt_stream",
       "pin_number": 18,
       "active": "low"
+    },
+    {
+      "name": "gpio_ptt_raspberrypi_2",
+      "type": "gpio_ptt_stream",
+      "pin_number": 5,
+      "active": "high"
     }
   ]
 }
+
 
 
