@@ -154,12 +154,21 @@
       "name": "json_stream",
       "type": "json_stream",
       "path": "default.json",
-      "format": "aprs_text"
+      "format": "aprs_text",
+      "max_size": "100K",
+      "max_files": 10,
+      "auto_flush_s": 10,
+      "auto_flush_size": "100K"
     },
     {
       "name": "stdout_stream",
       "type": "stdout_stream",
       "format": "ax25_hex"
+    },
+    {
+      "name": "stdout_stream_2",
+      "type": "stdout_stream",
+      "format": "bitstream"
     },
     {
       "name": "log_stream",
@@ -228,6 +237,7 @@
     }
   ]
 }
+
 
 
 
