@@ -30,9 +30,9 @@
       "preemphasis_tau_us": 750,
       "begin_silence_ms": 100,
       "end_silence_ms": 100,
-      "audio_streams": [ "wasapi_audio_stream_default" ],
-      "data_streams": [ "tcp_default" ],
-      "ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ]
+      "output_audio_streams": [ "wasapi_audio_stream_default" ],
+      "input_data_streams": [ "tcp_default" ],
+      "output_ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ],
       "ptt_pre_delay_ms": 10,
       "ptt_post_delay_ms": 5
     },
@@ -40,9 +40,6 @@
       "name": "1200 APRS modulator (wav renderer)",
       "enabled": true,
       "inherit": "1200 APRS modulator",
-      "audio_streams": [],
-      "data_streams": [],
-      "ptt_streams": [],
       "input_data_streams": [ "random_packet_stream" ],
       "output_audio_streams": [ "wav_file_default" ]
     },
@@ -50,8 +47,8 @@
       "name": "1200 APRS modulator (multiple)",
       "enabled": true,
       "inherit": "1200 APRS modulator",
-      "audio_streams": [ "wasapi_audio_stream_default", "wav_file_default" ],
-      "data_streams": [ "tcp_default", "serial_default" ]
+      "output_audio_streams": [ "wasapi_audio_stream_default", "wav_file_default" ],
+      "input_data_streams": [ "tcp_default", "serial_default" ]
     }
   ],
   "audio_streams": [
@@ -60,7 +57,15 @@
       "type": "wasapi_audio_stream",
       "device_name": "default",
       "sample_rate": 48000,
-      "volume": 20 
+      "volume": 20,
+      "concurrency": "mutex"
+    },
+    {
+      "name": "alsa_audio_stream_default",
+      "type": "alsa_audio_stream",
+      "device_id": "1,0",
+      "sample_rate": 44000,
+      "volume": 10
     },
     {
       "name": "tcp_audio_default",
@@ -199,5 +204,6 @@
     }
   ]
 }
+
 
 
