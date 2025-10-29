@@ -64,7 +64,7 @@
     {
       "name": "alsa_audio_stream_default",
       "type": "alsa_audio_stream",
-      "device_id": "1,0",
+      "device_id": "hw:1,0",
       "sample_rate": 44100,
       "volume": 10
     },
@@ -227,6 +227,7 @@
     }
   ]
 }
+
 
 
 
