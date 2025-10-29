@@ -58,13 +58,14 @@
       "sample_rate": 48000,
       "volume": 20,
       "write_concurrency": "mutex",
+      "write_concurrency_timeout_ms": 100,
       "overrun_read_buffer_size_ms": 60000
     },
     {
       "name": "alsa_audio_stream_default",
       "type": "alsa_audio_stream",
       "device_id": "1,0",
-      "sample_rate": 44000,
+      "sample_rate": 44100,
       "volume": 10
     },
     {
@@ -130,7 +131,7 @@
       "data_bits": 8,
       "stop_bits": 1,
       "parity": "none",
-      "flow_control": "none"
+      "flow_control": "none",
       "format": "ax25_kiss"
     },
     {
@@ -209,7 +210,8 @@
       "name": "gpio_ptt_raspberrypi_2",
       "type": "gpio_ptt_stream",
       "pin_number": 5,
-      "active": "high"
+      "active": "high",
+      "numbering": "wiringpi"
     },
     {
       "name": "library_ptt",
@@ -225,6 +227,7 @@
     }
   ]
 }
+
 
 
 
