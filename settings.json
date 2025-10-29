@@ -32,9 +32,7 @@
       "end_silence_ms": 100,
       "output_audio_streams": [ "wasapi_audio_stream_default" ],
       "input_data_streams": [ "tcp_default" ],
-      "output_ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ],
-      "ptt_pre_delay_ms": 10,
-      "ptt_post_delay_ms": 5
+      "output_ptt_streams": [ "serial_ptt_default", "gpio_ptt_raspberrypi", "gpio_ptt_raspberrypi_2" ]
     },
     {
       "name": "1200 APRS modulator (wav renderer)",
@@ -58,8 +56,8 @@
       "device_name": "default",
       "sample_rate": 48000,
       "volume": 20,
-      "concurrency": "mutex", // write concurrency
-      "buffer_size": "100K"
+      "write_concurrency": "mutex", // write concurrency
+      "read_buffer_size_ms": 60000
     },
     {
       "name": "alsa_audio_stream_default",
@@ -128,9 +126,17 @@
     {
       "name": "random_packet_stream",
       "type": "packet_stream",
-      "duration_ms": 0,
+      "count": 1000,
       "source": "random",
       "format": "aprs_text"
+    },
+    {
+      "name": "random_packet_stream_2",
+      "type": "packet_stream",
+      "count": 1000,
+      "source": "repeat",
+      "format": "aprs_text",
+      "packet": "N0CALL>APRS,CALL:messsage"
     },
     {
       "name": "json_stream",
@@ -152,7 +158,10 @@
       "max_files": 10,
       "max_lines": 1000, // only when the format is json
       "level": "info",
-      "verbosity": "normal"
+      "verbosity": "normal",
+      "auto_flush_s": 10,
+      "auto_flush_size": "100K",
+      "auto_flush_lines": 100
     },
     {
       "name": "library_stream",
@@ -207,6 +216,7 @@
     }
   ]
 }
+
 
 
 
