@@ -58,7 +58,8 @@
       "device_name": "default",
       "sample_rate": 48000,
       "volume": 20,
-      "concurrency": "mutex"
+      "concurrency": "mutex", // write concurrency
+      "buffer_size": "100K"
     },
     {
       "name": "alsa_audio_stream_default",
@@ -149,7 +150,9 @@
       "format": "text", // text or json
       "max_size": "100KB",
       "max_files": 10,
-      "max_lines": 1000 // only when the format is json
+      "max_lines": 1000, // only when the format is json
+      "level": "info",
+      "verbosity": "normal"
     },
     {
       "name": "library_stream",
@@ -204,6 +207,7 @@
     }
   ]
 }
+
 
 
 
