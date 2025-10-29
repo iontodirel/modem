@@ -116,30 +116,34 @@
     {
       "name": "tcp_default",
       "type": "tcp_data_stream",
-      "host": "192.168.1.11",
+      "bind_address": "0.0.0.0",
       "port": 8002,
       "format": "ax25_kiss",
       "write_concurrency": "mutex",
-      "max_clients": "100" // 0 for infinite
+      "max_clients": 100
     },
     {
       "name": "serial_default",
       "type": "serial_data_stream",
       "port": "COM3",
       "baud_rate": 9600,
+      "data_bits": 8,
+      "stop_bits": 1,
+      "parity": "none",
+      "flow_control": "none"
       "format": "ax25_kiss"
     },
     {
       "name": "random_packet_stream",
       "type": "packet_stream",
-      "count": 1000,
+      "total_count": 1000,
       "source": "random",
       "format": "aprs_text"
     },
     {
       "name": "random_packet_stream_2",
       "type": "packet_stream",
-      "count": 1000,
+      "total_count": 1000,
       "source": "repeat",
       "format": "aprs_text",
       "packet": "N0CALL>APRS,CALL:messsage"
@@ -196,6 +200,7 @@
       "name": "gpio_ptt_raspberrypi",
       "type": "gpio_ptt_stream",
       "pin_number": 18,
+      "numbering": "bcm",
       "active": "low",
       "pre_delay_ms": 5,
       "post_delay_ms": 1
@@ -220,6 +225,7 @@
     }
   ]
 }
+
 
 
 
