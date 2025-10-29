@@ -59,6 +59,7 @@
       "volume": 20,
       "write_concurrency": "mutex",
       "write_concurrency_timeout_ms": 100,
+      "write_concurrency_timeout_action": "drop",
       "overrun_read_buffer_size_ms": 60000
     },
     {
@@ -111,7 +112,7 @@
       "type": "fsk_audio_stream",
       "source": "random_ax25_aprs",
       "duration_ms": 0
-    },
+    }
   ],
   "data_streams": [
     {
@@ -227,6 +228,7 @@
     }
   ]
 }
+
 
 
 
