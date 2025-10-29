@@ -7,7 +7,7 @@
   // - can mix modulators and demodulators as desired 
   // - audio streams can be wav to file, native WASAPI audio devices or native ALSA; I will look into Mac later
   // - data streams can be JSON files, or TCP, serial ports, or stdout, or a C dynamic library interface for extensibility; stdout and logging to disk are just another data stream
-  // - data streams formats can be AX25/KISS, JSON format, or text (TNC2 format); AX25/KISS is important for compatibility but it’s antiquates, JSON or plain text is just better
+  // - data streams formats can be AX25/KISS, JSON format, or text (TNC2 format)
   // - PTT interface can be serial, gpio on the Pi or a C dynamic library interface
   // - data stream formats: 
   //   - aprs_text
@@ -15,6 +15,10 @@
   //   - ax25_hex
   //   - ax25_kiss
   //   - ax25_bin
+  //   - telemetry
+  //   - bitstream
+  // - telemetry format can be appended to most formats with "_with_telemetry"
+  // - telemetry format is not supported in some modes like KISS
   "modulators": [
     {
       "name": "1200 APRS modulator",
@@ -252,6 +256,7 @@
     }
   ]
 }
+
 
 
 
