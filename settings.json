@@ -163,7 +163,7 @@
       "name": "log_stream",
       "type": "log_stream",
       "file": "log.txt",
-      "format": "text", // text or json
+      "format": "aprs_text",
       "max_size": "100K",
       "max_files": 10,
       "level": "info",
@@ -225,6 +225,7 @@
     }
   ]
 }
+
 
 
 
