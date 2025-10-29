@@ -57,8 +57,8 @@
       "device_name": "default",
       "sample_rate": 48000,
       "volume": 20,
-      "write_concurrency": "mutex", // write concurrency
-      "read_buffer_size_ms": 60000
+      "write_concurrency": "mutex",
+      "overrun_read_buffer_size_ms": 60000
     },
     {
       "name": "alsa_audio_stream_default",
@@ -78,7 +78,10 @@
       "name": "wav_file_default",
       "type": "output_wav_audio_stream",
       "file_path": "output.wav",
-      "sample_rate": 48000
+      "sample_rate": 48000,
+      "file_mode": "append",
+      "max_size": "500MB",
+      "max_files": 10
     },
     {
       "name": "modulator_test_wav_file",
@@ -115,7 +118,9 @@
       "type": "tcp_data_stream",
       "host": "192.168.1.11",
       "port": 8002,
-      "format": "ax25_kiss"
+      "format": "ax25_kiss",
+      "write_concurrency": "mutex",
+      "max_clients": "100" // 0 for infinite
     },
     {
       "name": "serial_default",
@@ -215,6 +220,7 @@
     }
   ]
 }
+
 
 
 
