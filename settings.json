@@ -1,4 +1,19 @@
 {
+  // - supports arbitrary numbers of audio streams, ex: a modulator can render to an arbitrary number of audio devices
+  // - audio streams can be shared as many times as wanted across all modulators/demodulators
+  // - supports an arbitrary number of data streams, ex: multiple KISS interfaces for the same modulator
+  // - modulators/demodulators can use different audio streams and data streams
+  // - random fsk/afsk and data stream sources; this is useful for testing and generating demo packets
+  // - can mix modulators and demodulators as desired 
+  // - audio streams can be wav to file, native WASAPI audio devices or native ALSA; I will look into Mac later
+  // - data streams can be JSON files, or TCP, serial ports, or stdout, or a C dynamic library interface for extensibility; stdout and logging to disk are just another data stream
+  // - data streams formats can be AX25/KISS, JSON format, or text (TNC2 format); AX25/KISS is important for compatibility but it’s antiquates, JSON or plain text is just better
+  // - PTT interface can be serial, gpio on the Pi or a C dynamic library interface
+  // - data stream formats: 
+  //   - aprs_text
+  //   - aprs_json
+  //   - ax25_hex
+  //   - ax25_kiss
   "modulators": [
     {
       "name": "1200 APRS modulator",
@@ -75,7 +90,19 @@
       "type": "fsk_audio_stream",
       "source": "random_bitstream",
       "duration_ms": 0
-    }
+    },
+    {
+      "name": "fsk_random_stream_2",
+      "type": "fsk_audio_stream",
+      "source": "random_ax25",
+      "duration_ms": 0
+    },
+    {
+      "name": "fsk_random_stream_3",
+      "type": "fsk_audio_stream",
+      "source": "random_ax25_aprs",
+      "duration_ms": 0
+    },
   ],
   "data_streams": [
     {
@@ -83,20 +110,21 @@
       "type": "tcp_data_stream",
       "host": "192.168.1.11",
       "port": 8002,
-      "format": "kiss"
+      "format": "ax25_kiss"
     },
     {
       "name": "serial_default",
       "type": "serial_data_stream",
       "port": "COM3",
       "baud_rate": 9600,
-      "format": "kiss"
+      "format": "ax25_kiss"
     },
     {
       "name": "random_packet_stream",
       "type": "packet_stream",
       "duration_ms": 0,
-      "source": "random"
+      "source": "random",
+      "format": "aprs_text"
     },
     {
       "name": "json_stream",
@@ -108,6 +136,22 @@
       "name": "stdout_stream",
       "type": "stdout_stream",
       "format": "ax25_hex"
+    },
+    {
+      "name": "log_stream",
+      "type": "log_stream",
+      "file": "log.txt",
+      "format": "text", // text or json
+      "max_size": "100KB",
+      "max_files": 10,
+      "max_lines": 1000 // only when the format is json
+    },
+    {
+      "name": "library_stream",
+      "type": "library_stream",
+      "platform": "windows",
+      "path": "library.dll",
+      "format": "aprs_json"
     }
   ],
   "ptt_streams": [
@@ -155,4 +199,5 @@
     }
   ]
 }
+
 
