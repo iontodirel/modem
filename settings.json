@@ -179,6 +179,12 @@
       "type": "stdout_data_stream",
       "format": "bitstream"
     },
+    // formats can be combined
+    {
+      "name": "stdout_stream_2",
+      "type": "stdout_data_stream",
+      "format": "telemetry"
+    },
     {
       "name": "log_stream",
       "type": "log_data_stream",
@@ -246,6 +252,7 @@
     }
   ]
 }
+
 
 
 
