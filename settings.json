@@ -14,6 +14,7 @@
   //   - aprs_json
   //   - ax25_hex
   //   - ax25_kiss
+  //   - ax25_bin
   "modulators": [
     {
       "name": "1200 APRS modulator",
@@ -154,14 +155,12 @@
       "type": "log_stream",
       "file": "log.txt",
       "format": "text", // text or json
-      "max_size": "100KB",
+      "max_size": "100K",
       "max_files": 10,
-      "max_lines": 1000, // only when the format is json
       "level": "info",
       "verbosity": "normal",
       "auto_flush_s": 10,
-      "auto_flush_size": "100K",
-      "auto_flush_lines": 100
+      "auto_flush_size": "100K"
     },
     {
       "name": "library_stream",
@@ -216,6 +215,7 @@
     }
   ]
 }
+
 
 
 
